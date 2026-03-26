@@ -1,0 +1,69 @@
+<template>
+    <!-- Use allow-multiple-sections-open for independent toggling -->
+    <lightning-accordion allow-multiple-sections-open>
+        
+        <!-- INCOME SECTION -->
+        <lightning-accordion-section name="Income" label="Income">
+            <lightning-button slot="actions" label="Add Income" onclick={handleAdd} data-type="income"></lightning-button>
+            <template for:each={incomeList} for:item="item" for:index="index">
+                <div key={item.id} class="slds-grid slds-gutters slds-var-m-bottom_small">
+                    <div class="slds-col slds-size_5-of-12">
+                        <lightning-input label="Income Source" value={item.source} data-index={index} data-type="income" onchange={handleChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_5-of-12">
+                        <lightning-input label="Monthly Amount" type="number" formatter="currency" value={item.amount} data-index={index} data-type="income" onchange={handleChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_2-of-12">
+                        <label class="slds-form-element__label">Delete</label><br/>
+                        <lightning-button-icon icon-name="utility:delete" onclick={handleDelete} data-index={index} data-type="income"></lightning-button-icon>
+                    </div>
+                </div>
+            </template>
+        </lightning-accordion-section>
+
+        <!-- ASSETS SECTION -->
+        <lightning-accordion-section name="Assets" label="Assets">
+            <lightning-button slot="actions" label="Add Asset" onclick={handleAdd} data-type="asset"></lightning-button>
+            <template for:each={assetList} for:item="item" for:index="index">
+                <div key={item.id} class="slds-grid slds-gutters slds-var-m-bottom_small">
+                    <div class="slds-col slds-size_4-of-12">
+                        <lightning-combobox label="Asset Type" options={assetOptions} value={item.type} data-index={index} data-type="asset" onchange={handleChange}></lightning-combobox>
+                    </div>
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning-input label="Estimated Value" type="number" formatter="currency" value={item.value} data-index={index} data-type="asset" onchange={handleChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning-input label="Description" value={item.desc} data-index={index} data-type="asset" onchange={handleChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_2-of-12">
+                        <label class="slds-form-element__label">Delete</label><br/>
+                        <lightning-button-icon icon-name="utility:delete" onclick={handleDelete} data-index={index} data-type="asset"></lightning-button-icon>
+                    </div>
+                </div>
+            </template>
+        </lightning-accordion-section>
+
+        <!-- LIABILITIES SECTION -->
+        <lightning-accordion-section name="Liabilities" label="Liabilities">
+            <lightning-button slot="actions" label="Add Liability" onclick={handleAdd} data-type="liability"></lightning-button>
+            <template for:each={liabilityList} for:item="item" for:index="index">
+                <div key={item.id} class="slds-grid slds-gutters slds-var-m-bottom_small">
+                    <div class="slds-col slds-size_4-of-12">
+                        <lightning-combobox label="Liability Type" options={liabilityOptions} value={item.type} data-index={index} data-type="liability" onchange={handleChange}></lightning-combobox>
+                    </div>
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning-input label="Amount Owed" type="number" formatter="currency" value={item.amount} data-index={index} data-type="liability" onchange={handleChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning-input label="Monthly Payment" type="number" formatter="currency" value={item.payment} data-index={index} data-type="liability" onchange={handleChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_2-of-12">
+                        <label class="slds-form-element__label">Delete</label><br/>
+                        <lightning-button-icon icon-name="utility:delete" onclick={handleDelete} data-index={index} data-type="liability"></lightning-button-icon>
+                    </div>
+                </div>
+            </template>
+        </lightning-accordion-section>
+
+    </lightning-accordion>
+</template>
