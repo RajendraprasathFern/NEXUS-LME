@@ -1,25 +1,47 @@
-    import { LightningElement, track, api } from 'lwc';
+import { LightningElement, track, api } from 'lwc';
 
     export default class DynamicFinancialsForm extends LightningElement {
+
+         @api recordId; // Account ID passed from the Quick Action
+         @api varAppId;
         // We use @track so the UI updates when we modify arrays
         @track incomeList = [{ id: Date.now(), source: '', amount: null }];
         @track assetList = [{ id: Date.now(), type: '', value: null, desc: '' }];
         @track liabilityList = [{ id: Date.now(), type: '', amount: null, payment: null }];
 
         // Exposed for the Flow to retrieve the data
-    @api get incomeJSON() { return JSON.stringify(this.incomeList); }
-    @api get assetJSON() { return JSON.stringify(this.assetList); }
-    @api get liabilityJSON() { return JSON.stringify(this.liabilityList); }
-        
+        @api 
+        get incomeItems() {
+            return this.incomeList.map(item => ({
+                Account__c: this.recordId,
+                Application__c: this.varAppId,
+                Income_Source__c: item.source,
+                Monthly_Amount__c: item.amount
+            }));
+        }
 
-        @api
-        get financialsJSON() {
-        return JSON.stringify({
-            income: this.incomeList,
-            assets: this.assetList,
-            liabilities: this.liabilityList
-        });
-    }
+        @api 
+        get assetItems() {
+            return this.assetList.map(item => ({
+                Account__c: this.recordId,
+                Application__c: this.varAppId,
+                Asset_Type__c: item.type,
+                Estimated_Value__c: item.value,
+                Description__c: item.desc
+            }));
+        }
+
+        @api 
+        get liabilityItems() {
+            return this.liabilityList.map(item => ({
+                Account__c: this.recordId,
+                Application__c: this.varAppId,
+                Liability_Type__c: item.type,
+                Amount_Owed__c: item.amount,
+                Monthly_Payment__c: item.payment
+            }));
+        }
+        
         // Combobox Options to match the dropdowns in your screenshot
         get assetOptions() {
             return [
