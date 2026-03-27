@@ -44,7 +44,7 @@
         <object>Financial_Account__c</object>
         <schedule>
             <dayOfMonthToRun>0</dayOfMonthToRun>
-            <frequency>Once</frequency>
+            <frequency>Daily</frequency>
             <frequencyNumber>0</frequencyNumber>
             <startDate>2026-03-26</startDate>
             <startTime>00:00:00.000Z</startTime>

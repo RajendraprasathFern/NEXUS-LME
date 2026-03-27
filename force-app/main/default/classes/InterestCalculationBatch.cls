@@ -21,6 +21,8 @@ global class InterestCalculationBatch implements Database.Batchable<sObject> {
         List<Financial_Account__c> accountsToUpdate = new List<Financial_Account__c>();
         
         for (Financial_Account__c fa : scope) {
+
+            Decimal currentBalance = (fa.Current_Balance__c == null) ? 0 : fa.Current_Balance__c;
             // Null check: If Total_Interest__c is null, treat it as 0
             Decimal currentInterest = (fa.Total_Interest__c == null) ? 0 : fa.Total_Interest__c;
             
@@ -38,6 +40,7 @@ global class InterestCalculationBatch implements Database.Batchable<sObject> {
             update accountsToUpdate;
         }
     }
+
 
     global void finish(Database.BatchableContext BC) {
        system.debug('Batch job completed successfully');
