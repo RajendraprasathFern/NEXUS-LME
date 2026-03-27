@@ -60,7 +60,8 @@ export default class DynamicFinancialsForm extends LightningElement {
         return [
             { label: 'Mortgage', value: 'Mortgage' },
             { label: 'Credit Card', value: 'Credit Card' },
-            { label: 'Loan', value: 'Loan' }
+            { label: 'Auto Loan', value: 'Auto Loan' },
+            { label: 'Personal Loan', value: 'Personal Loan' },
         ];
     }
 
