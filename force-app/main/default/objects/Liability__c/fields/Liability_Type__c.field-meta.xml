@@ -10,9 +10,9 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>(Mortgage</fullName>
+                <fullName>Mortgage</fullName>
                 <default>false</default>
-                <label>(Mortgage</label>
+                <label>Mortgage</label>
             </value>
             <value>
                 <fullName>Auto Loan</fullName>

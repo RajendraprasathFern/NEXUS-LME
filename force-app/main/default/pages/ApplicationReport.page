@@ -1,0 +1,100 @@
+<apex:page standardController="Application__c" extensions="ApplicationReportController" renderAs="pdf" applyBodyTag="false" applyHtmlTag="false" showHeader="false" sidebar="false" >
+    <html>
+    <head>
+        <style>
+            @page { size: A4; margin: 20px; }s
+            body { font-family: 'Arial', sans-serif; font-size: 11px; }
+            .header-bar { background-color: #333; color: white; padding: 5px; font-weight: bold; margin-top: 15px; }
+            table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+            th { background-color: #eee; padding: 6px; border: 1px solid #999; }
+            td { padding: 5px; border: 1px solid #ddd; }
+            .meta-box { border: 1px solid #000; padding: 10px; width: 300px; float: right; }
+            .ratio-container { width: 100%; margin-top: 20px; display:flex; }
+            .ratio-box { width: 45%; border: 2px solid #333; padding: 10px; text-align:center; display: inline-block; }
+        </style>
+    </head>
+    
+    <body>
+        <!-- Top Header: Logo + Meta Box -->
+        <table style="border:none;">
+            <tr>
+                <td style="width: 50%;"><img src="{!$Resource.CompanyLogo}" width="150px"/></td>
+                <td style="width: 50%;">
+                    <div class="meta-box">
+                        <b>Application ID:</b> {!app.Name}<br/>
+                        <b>Account:</b> {!app.Account__r.Name}<br/>
+                        <b>Status:</b> {!app.Status__c}<br/>
+                        <b>Report Date:</b> {!DAY(TODAY())}/{!MONTH(TODAY())}/{!YEAR(TODAY())}
+                    </div>
+                </td>
+            </tr>
+        </table>
+        
+        <h2 style="text-align:center; margin-top: 50px;">Nexus LME: Financial Overview &amp; Snapshot</h2>
+           
+
+    
+        
+        
+        
+        <!-- Financial Summary -->
+        <div class="header-bar">FINANCIAL SUMMARY</div>
+        <table>
+            <tr><th>Financial Metric</th><th>Amount (USD)</th></tr>
+            <tr><td>Total Monthly Income</td><td><apex:outputText value="{0, number, currency}"><apex:param value="{!totalIncome}"/></apex:outputText></td></tr>
+            <tr><td>Total Estimated Assets</td><td><apex:outputText value="{0, number, currency}"><apex:param value="{!totalAssets}"/></apex:outputText></td></tr>
+            <tr><td>Total Monthly Liabilities</td><td><apex:outputText value="{0, number, currency}"><apex:param value="{!totalLiabPay}"/></apex:outputText></td></tr>
+            <tr><td>Total Outstanding Debt</td><td><apex:outputText value="{0, number, currency}"><apex:param value="{!totalDebt}"/></apex:outputText></td></tr>
+        </table>
+        
+                     <!-- Analysis Tables -->
+        <div class="header-bar">INCOME ANALYSIS</div>
+        <table>
+            <tr><th>Income Source</th><th>Amount (Monthly)</th></tr>
+            <apex:repeat value="{!incomes}" var="i">
+                <tr><td>{!i.Income_Source__c}</td><td>{!i.Monthly_Amount__c}</td></tr>
+            </apex:repeat>
+        </table>
+        
+        <div class="header-bar">ASSET ANALYSIS</div>
+        <table>
+            <tr><th>Key Assets</th><th>Estimated Value</th></tr>
+            <apex:repeat value="{!assets}" var="a">
+                <tr><td>{!a.Asset_Type__c}</td><td>{!a.Estimated_Value__c}</td></tr>
+            </apex:repeat>
+        </table>
+
+        <!-- Analysis Tables -->
+        <div class="header-bar">LIABILITY ANALYSIS</div>
+        <table>
+            <tr>
+                <th>Key Debts</th>
+                <th>Amount (Monthly Obligation)</th>
+                <th>Total Debt Owed</th>
+            </tr>
+            <apex:repeat value="{!liabilities}" var="l">
+                <tr>
+                    <td>{!l.Liability_Type__c}</td>
+                    <td><apex:outputText value="{0, number, currency}"><apex:param value="{!l.Monthly_Payment__c}"/></apex:outputText></td>
+                    <td><apex:outputText value="{0, number, currency}"><apex:param value="{!l.Amount_Owed__c}"/></apex:outputText></td>
+                </tr>
+            </apex:repeat>
+        </table>
+
+        <table style="border:none; margin-top: 20px;">
+    <tr>
+        <td style="width: 50%; padding: 0 0px;">
+            <div style="border: 2px solid #333; padding: 10px; text-align: center;">
+                <b>DTI Ratio:</b><br/>{!dtiRatio}%
+            </div>
+        </td>
+        <td style="width: 50%; padding: 0 0px; margin-left: 5px;">
+            <div style="border: 2px solid #333; padding: 10px; text-align: center;">
+                <b>Asset/Liability Ratio:</b><br/>{!alRatio}
+            </div>
+        </td>
+    </tr>
+</table>
+    </body>
+    </html>
+</apex:page>

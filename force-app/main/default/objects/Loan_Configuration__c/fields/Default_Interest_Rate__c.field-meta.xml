@@ -4,7 +4,7 @@
     <defaultValue>5.00</defaultValue>
     <label>Default Interest Rate</label>
     <precision>5</precision>
-    <required>false</required>
+    <required>true</required>
     <scale>2</scale>
     <trackTrending>false</trackTrending>
     <type>Percent</type>

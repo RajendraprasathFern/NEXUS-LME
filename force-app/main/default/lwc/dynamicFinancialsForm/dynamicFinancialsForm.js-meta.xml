@@ -5,11 +5,14 @@
     <targets>
         <target>lightning__FlowScreen</target>
     </targets>
-    <targetConfigs>
-        <targetConfig targets="lightning__FlowScreen">
-            <property name="incomeJSON" type="String" label="Income JSON" role="outputOnly"/>
-            <property name="assetJSON" type="String" label="Asset JSON" role="outputOnly"/>
-            <property name="liabilityJSON" type="String" label="Liability JSON" role="outputOnly"/>
-        </targetConfig>
-    </targetConfigs>
+   <targetConfigs>
+    <targetConfig targets="lightning__FlowScreen">
+        <property name="recordId" type="String" label="Account ID" role="inputOnly"/>
+        <property name="varAppId" type="String" label="Application ID" role="inputOnly"/>
+        <!-- These will now show up as Record Collections in Flow -->
+        <property name="incomeItems" type="@salesforce/schema/Income__c[]" label="Income List" role="outputOnly"/>
+        <property name="assetItems" type="@salesforce/schema/Asset__c[]" label="Asset List" role="outputOnly"/>
+        <property name="liabilityItems" type="@salesforce/schema/Liability__c[]" label="Liability List" role="outputOnly"/>
+    </targetConfig>
+</targetConfigs>
 </LightningComponentBundle>
