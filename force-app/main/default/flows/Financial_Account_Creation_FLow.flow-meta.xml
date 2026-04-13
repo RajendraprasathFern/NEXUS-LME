@@ -2,22 +2,6 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>66.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
-    <assignments>
-        <name>Interest_Assignment</name>
-        <label>Interest Assignment</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignmentItems>
-            <assignToReference>Default_Interest_Rate</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>$Setup.Loan_Configuration__c.Default_Interest_Rate__c</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Create_Financial_Account</targetReference>
-        </connector>
-    </assignments>
     <environments>Default</environments>
     <interviewLabel>Financial Acccount Creation FLow {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Financial Account Creation FLow</label>
@@ -82,7 +66,7 @@
         <locationX>0</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Interest_Assignment</targetReference>
+            <targetReference>Create_Financial_Account</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -96,12 +80,12 @@
         <recordTriggerType>Update</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Active</status>
+    <status>Draft</status>
     <variables>
         <name>Default_Interest_Rate</name>
         <dataType>Number</dataType>
         <isCollection>false</isCollection>
-        <isInput>false</isInput>
+        <isInput>true</isInput>
         <isOutput>false</isOutput>
         <scale>2</scale>
         <value>
